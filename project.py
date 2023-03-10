@@ -3,7 +3,7 @@ import shutil
 import time
 class Parcer:
     def __init__(self):
-       self.count = -1
+      
        self.list_iteration = []
        self.x = input("Put the directore you want to store the file")
        os.chdir(self.x)
@@ -30,10 +30,9 @@ class Parcer:
                         yield our_file
                             
                            
-                               #shutil.move(our_file,f"C:\Второй семестр\mainfolder\{self.list_iteration[addition]}")
-                      
+                               
 
-                               #yield f"C:\Второй семестр\mainfolder\{self.list_iteration[addition]}"
+                               
             
 x = Parcer()
 
