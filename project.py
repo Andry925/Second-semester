@@ -1,33 +1,38 @@
+
 import os 
 import shutil
 import time
 class Parcer:
     def __init__(self):
-      
-       self.list_iteration = []
-       self.x = input("Put the directore you want to store the file")
-       os.chdir(self.x)
+       self.list_extension = []
+       self.directory = input("Put the directore you want to store the file")
+       os.chdir(self.directory)
        
-       for run in self.search(input("Put the start"),input("Put the key you want to copy the file")):
-           print(run)
+       for file_path in self.search(input("Put the start"),input("Put the key you want to copy the file")):
+           print(file_path)
         
     def search(self,path,key_for_search):
         self.key_for_search = key_for_search
         self.path = path
         for iteration in self.key_for_search.split():
-            self.list_iteration.append(iteration)
+            self.list_extension.append(iteration)
             self.y = f"mainfolder\{iteration}"
             os.makedirs(self.y)
     
         for adress,dirs,files in os.walk(self.path):
             for file in files:
-                if self.key_for_search in file:
+                for second in self.key_for_search.split():
+                    if second in file:
 
-                    our_file =  os.path.join(adress,file)
-                    if time.time() - os.path.getctime(our_file) < 864000:
+                        our_file =  os.path.join(adress,file)
+                        if time.time() - os.path.getctime(our_file) < 2000000:
+                            try:
                         
-                        shutil.copy(our_file,os.path.join(self.x,self.y))
-                        yield our_file
+                                shutil.move(our_file,f"C:\Второй семестр\mainfolder\{second}")
+                                yield our_file
+                            except:
+                                with open("C:\Второй семестр\mainfolder\mistakes.txt",'w') as file_mistake:
+                                    file_mistake.write(our_file)
                             
                            
                                
