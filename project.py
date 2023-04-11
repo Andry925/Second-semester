@@ -33,7 +33,7 @@ class FileManager(Tk):
             self.list_extension.append(extension)
             self.mainfolder = f"{name_folder}\\{extension}"
             os.makedirs(self.mainfolder)
-        return self.path, self.extension_for_search
+        
 
     def create_full_path(self):
         self.path_copy = os.path.join(self.directory, name_folder)
