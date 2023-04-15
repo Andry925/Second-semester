@@ -4,6 +4,7 @@ import os
 import shutil
 import time
 seconds_in_day = 86400
+list_defect = ["$",".lnk",".LNK"]
 
 class FileManager():
     def __init__(self):
@@ -20,15 +21,14 @@ class FileManager():
                 break
             except :
                 print("Invalid input of data -")
-        self.extension_folders(self.directory, input("Put extensions -"))
+        self.extension_folders(input("Put extensions -"))
         for file in self.create_full_path():
             self.sort_and_move(file)
-            print(f"File is copied {file}")
+            print(f"File is copied{file}")
         self.final_decision()
 
-    def extension_folders(self, path, extension_for_search):
+    def extension_folders(self, extension_for_search):
         self.extension_for_search = extension_for_search
-        self.path = path
         for extension in self.extension_for_search.split():
             self.list_extension.append(extension)
             self.mainfolder = f"{self.name_folder}\\{extension}"
@@ -36,31 +36,27 @@ class FileManager():
         
 
     def create_full_path(self):
-        self.list_defect = ["$","lnk","LNK"]
         self.path_copy = os.path.join(self.directory, self.name_folder)
-        for adress, dirs, files in os.walk(self.way):
+        for address, dirs, files in os.walk(self.way):
 
             for file in files:
                 for extension_copy in self.extension_for_search.split():
-                    if extension_copy in file and not any(defect in file for defect in self.list_defect):
-                        our_file = os.path.join(adress, file)
-                        if time.time() - os.path.getctime(our_file) < self.day and "$" not in our_file:
-                           
+                    if extension_copy in file :
+                        our_file = os.path.join(address, file)
+                        if time.time() - os.path.getctime(our_file) < self.day  and not any( defect in our_file for defect in list_defect):
+
                             
                             yield our_file
 
     def sort_and_move(self, our_file):
-        extension_to_copy = our_file.split(".")[-1]
-       
-        try:
-            if extension_to_copy in self.list_extension:
-            
-                shutil.copy(our_file, os.path.join(self.path_copy, extension_to_copy))
-                    
-
-        except :
-            with open(os.path.join(self.path_copy, "mistakes.txt"), 'a') as file_mistake:
-                file_mistake.write(f"{our_file}\n")
+        for extension in self.list_extension:
+            try:
+                if extension in our_file:
+                    shutil.copy(our_file, os.path.join(self.path_copy, extension))
+                   
+            except :
+                with open(os.path.join(self.path_copy, "mistakes.txt"), 'a') as file_mistake:
+                    file_mistake.write(f"{our_file}\n")
 
     def final_decision(self):
         self.what_to_do = input("Do you want to delete these files -")
@@ -96,4 +92,3 @@ class Interface(tkinter.Tk):
         
 root = Interface()
 root.mainloop()
-
