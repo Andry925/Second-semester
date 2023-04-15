@@ -1,10 +1,10 @@
 import tkinter
-import sys
 import os
 import shutil
 import time
 seconds_in_day = 86400
-list_defect = ["$",".lnk",".LNK"]
+list_defect = ["$", ".lnk", ".LNK"]
+
 
 class FileManager():
     def __init__(self):
@@ -19,12 +19,13 @@ class FileManager():
                 os.chdir(self.directory)
                 self.way = input("Put the path -")
                 break
-            except :
+            except BaseException:
                 print("Invalid input of data -")
-        self.extension_folders(input("Put extensions -"))
-        for file in self.create_full_path():
-            self.sort_and_move(file)
-            print(f"File is copied{file}")
+        for extension in self.extension_folders(input("Put extensions -")):
+
+            for file in self.create_full_path(extension):
+                self.sort_and_move(file)
+                print(f"File is copied{file}")
         self.final_decision()
 
     def extension_folders(self, extension_for_search):
@@ -33,28 +34,30 @@ class FileManager():
             self.list_extension.append(extension)
             self.mainfolder = f"{self.name_folder}\\{extension}"
             os.makedirs(self.mainfolder)
-        
+            yield extension
 
-    def create_full_path(self):
-        self.path_copy = os.path.join(self.directory, self.name_folder)
+    def create_full_path(self,extension_copy):
         for address, dirs, files in os.walk(self.way):
 
             for file in files:
-                for extension_copy in self.extension_for_search.split():
-                    if extension_copy in file :
-                        our_file = os.path.join(address, file)
-                        if time.time() - os.path.getctime(our_file) < self.day  and not any( defect in our_file for defect in list_defect):
+                
+                if extension_copy in file:
+                     our_file = os.path.join(address, file)
+                     if time.time() - os.path.getctime(our_file) < self.day and not any(
+                         defect in our_file for defect in list_defect):
 
-                            
-                            yield our_file
+                        yield our_file
 
     def sort_and_move(self, our_file):
+        self.path_copy = os.path.join(self.directory, self.name_folder)
         for extension in self.list_extension:
             try:
                 if extension in our_file:
-                    shutil.copy(our_file, os.path.join(self.path_copy, extension))
-                   
-            except :
+                    shutil.copy(
+                        our_file, os.path.join(
+                            self.path_copy, extension))
+
+            except BaseException:
                 with open(os.path.join(self.path_copy, "mistakes.txt"), 'a') as file_mistake:
                     file_mistake.write(f"{our_file}\n")
 
@@ -64,31 +67,27 @@ class FileManager():
             shutil.rmtree(self.name_folder)
 
 
-
 class Interface(tkinter.Tk):
     def __init__(self):
         super().__init__()
         self.window = tkinter.Tk()
         self.create_window()
         self.create_widgets()
-        
-
 
     def create_window(self):
         self.window.title("An interface for my app")
         self.window.geometry("800x400")
         self.frame = tkinter.Frame(self.window)
         self.frame.pack()
-    
+
     def create_widgets(self):
-        self.label = tkinter.Label(self.window,text = "My program")
+        self.label = tkinter.Label(self.window, text="My program")
         self.label.pack()
-        self.button = tkinter.Button(self.window,text = "Click me",command= FileManager)
+        self.button = tkinter.Button(
+            self.window, text="Click me", command=FileManager)
         self.button.pack()
-     
 
 
-
-        
 root = Interface()
+
 root.mainloop()
