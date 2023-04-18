@@ -1,4 +1,3 @@
-import tkinter
 import os
 import shutil
 import time
@@ -65,29 +64,3 @@ class FileManager():
         self.what_to_do = input("Do you want to delete these files -")
         if self.what_to_do == "Yes":
             shutil.rmtree(self.name_folder)
-
-
-class Interface(tkinter.Tk):
-    def __init__(self):
-        super().__init__()
-        self.window = tkinter.Tk()
-        self.create_window()
-        self.create_widgets()
-
-    def create_window(self):
-        self.window.title("An interface for my app")
-        self.window.geometry("800x400")
-        self.frame = tkinter.Frame(self.window)
-        self.frame.pack()
-
-    def create_widgets(self):
-        self.label = tkinter.Label(self.window, text="My program")
-        self.label.pack()
-        self.button = tkinter.Button(
-            self.window, text="Click me", command=FileManager)
-        self.button.pack()
-
-
-root = Interface()
-
-root.mainloop()
