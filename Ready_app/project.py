@@ -6,6 +6,7 @@ seconds_in_day = 86400
 list_defect = ["$", ".lnk", ".LNK"]
 
 
+
 class FileManager():
     def __init__(self):
         self.list_extension = []
@@ -24,21 +25,24 @@ class FileManager():
                 print("Invalid input of data -")
         for extension in self.extension_folders(input("Put extensions -")):
             
+            
 
             for file in self.create_full_path(extension):
+                
                 try:
                     if "docx" in file:
                         for docx_file in self.checking_docx_files(file,self.docx_information):
                         
                             self.sort_and_move(docx_file)
                 except:
-                    print(f"Something went wrong with{docx_file}")
+                        print(f"Something went wrong with{docx_file}")
+                    
 
                
 
-                if ".docx" not in file:
-                    self.sort_and_move(file)
-                    print(f"File is copied{file}")
+            if ".docx" not in file:
+                self.sort_and_move(file)
+                print(f"File is copied{file}")
         self.final_decision()
 
     
