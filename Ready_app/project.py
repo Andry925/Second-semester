@@ -26,14 +26,17 @@ class FileManager():
             
 
             for file in self.create_full_path(extension):
-                if "docx" in file:
-                    for docx_file in self.checking_docx_files(file,self.docx_information):
+                try:
+                    if "docx" in file:
+                        for docx_file in self.checking_docx_files(file,self.docx_information):
                         
-                       self.sort_and_move(docx_file)
+                            self.sort_and_move(docx_file)
+                except:
+                    print(f"Something went wrong with{docx_file}")
 
                
 
-                else:
+                if ".docx" not in file:
                     self.sort_and_move(file)
                     print(f"File is copied{file}")
         self.final_decision()
