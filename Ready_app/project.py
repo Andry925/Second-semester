@@ -1,3 +1,4 @@
+import docx
 import os
 import shutil
 import time
@@ -21,12 +22,32 @@ class FileManager():
             except BaseException:
                 print("Invalid input of data -")
         for extension in self.extension_folders(input("Put extensions -")):
+            
 
             for file in self.create_full_path(extension):
-                self.sort_and_move(file)
+                if "docx" in file:
+                    for docx_file in self.checking_docx_files(file,"flash"):
+                        
+                       self.sort_and_move(docx_file)
+
+               
+
+                else:
+                    self.sort_and_move(file)
                 print(f"File is copied{file}")
         self.final_decision()
 
+    
+    def checking_docx_files(self,our_file,information):
+        self.information = information
+        
+        
+        doc = docx.Document(our_file)
+        for paragraph in doc.paragraphs:
+            text_file = paragraph.text
+            if self.information in text_file:
+               yield our_file
+        
     def extension_folders(self, extension_for_search):
         self.extension_for_search = extension_for_search
         for extension in self.extension_for_search.split():
@@ -42,6 +63,7 @@ class FileManager():
                 
                 if extension_copy in file:
                      our_file = os.path.join(address, file)
+                     
                      if time.time() - os.path.getctime(our_file) < self.day and not any(
                          defect in our_file for defect in list_defect):
 
@@ -51,7 +73,7 @@ class FileManager():
         self.path_copy = os.path.join(self.directory, self.name_folder)
         for extension in self.list_extension:
             try:
-                if extension in our_file:
+                if extension in our_file and extension!= ".docx":
                     shutil.copy(
                         our_file, os.path.join(
                             self.path_copy, extension))
@@ -64,3 +86,5 @@ class FileManager():
         self.what_to_do = input("Do you want to delete these files -")
         if self.what_to_do == "Yes":
             shutil.rmtree(self.name_folder)
+
+run = FileManager()
