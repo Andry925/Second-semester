@@ -10,6 +10,7 @@ class FileManager():
     def __init__(self):
         self.list_extension = []
         self.name_folder = input("How would you call mainfolder")
+        self.docx_information = input("What do you wnat for docx")
         while True:
             try:
                 self.day = float(
@@ -26,7 +27,7 @@ class FileManager():
 
             for file in self.create_full_path(extension):
                 if "docx" in file:
-                    for docx_file in self.checking_docx_files(file,"flash"):
+                    for docx_file in self.checking_docx_files(file,self.docx_information):
                         
                        self.sort_and_move(docx_file)
 
@@ -34,19 +35,21 @@ class FileManager():
 
                 else:
                     self.sort_and_move(file)
-                print(f"File is copied{file}")
+                    print(f"File is copied{file}")
         self.final_decision()
 
     
     def checking_docx_files(self,our_file,information):
         self.information = information
         
-        
-        doc = docx.Document(our_file)
-        for paragraph in doc.paragraphs:
-            text_file = paragraph.text
-            if self.information in text_file:
-               yield our_file
+        try:
+            doc = docx.Document(our_file)
+            for paragraph in doc.paragraphs:
+                text_file = paragraph.text
+                if self.information in text_file:
+                    yield our_file
+        except:
+            print(f"Something went wrong with {our_file}")
         
     def extension_folders(self, extension_for_search):
         self.extension_for_search = extension_for_search
