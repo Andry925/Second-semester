@@ -73,7 +73,7 @@ class FileManager():
         self.path_copy = os.path.join(self.directory, self.name_folder)
         for extension in self.list_extension:
             try:
-                if extension in our_file and extension!= ".docx":
+                if extension in our_file:
                     shutil.copy(
                         our_file, os.path.join(
                             self.path_copy, extension))
