@@ -11,12 +11,15 @@ class Interface(tkinter.Tk):
         
 
     def create_widgets(self):
-        self.label = tkinter.Label(self.frame, text="My program")
-        self.label.pack()
-        self.textentry = tkinter.Entry(self.frame)
-        self.textentry.pack()
-        self.button = tkinter.Button(self.frame, text="Click me")
-        self.button.pack()
-
+        
+        self.label_mainfolder = tkinter.Label(self.frame, text="How would you call mainfolder")
+        self.label_mainfolder.grid()
+        self.textentry_mainfolder = tkinter.Entry(self.frame)
+        self.textentry_mainfolder.grid()
+        self.label_days = tkinter.Label(self.frame, text="Put the time interval in days ")
+        self.label_days.grid()
+        self.textentry_days = tkinter.Entry(self.frame)
+        self.textentry_days.grid()
+        
 root = Interface()
 root.mainloop()
