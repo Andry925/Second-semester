@@ -1,69 +1,32 @@
-import docx
+import final_code
 import os
 import shutil
 import time
 seconds_in_day = 86400
 list_defect = ["$", ".lnk", ".LNK"]
 
-
-
 class FileManager():
-    
     def __init__(self):
         self.list_extension = []
-        
-        self.name_folder = input("How would you call mainfolder")
-        self.docx_information = input("What do you wnat for docx")
+        self.name_folder = final_code.get_mainfolder()
         while True:
             try:
-                self.day = float(
-                    input("Put the time interval in days -")) * seconds_in_day
-                self.directory = input(
-                    "Put the directore you want to store the file -")
-                os.chdir(self.directory)
-                self.way = input("Put the path -")
+                self.day = int(
+                   final_code.get_days()) * seconds_in_day
+                self.extension_for_search = final_code.get_extensions()
+                self.directory = final_code.get_directory()
+                os.chdir(str(self.directory))
+                self.way = final_code.get_way()
                 break
             except BaseException:
                 print("Invalid input of data -")
-        for extension in self.extension_folders(input("Put extensions -")):
-            
-            
+        for extension in self.extension_folders(self.extension_for_search):
 
             for file in self.create_full_path(extension):
-                
-                try:
-                    if "docx" in file:
-                        for docx_file in self.checking_docx_files(file,self.docx_information):
-                        
-                            self.sort_and_move(docx_file)
-                            print(f"File is copied {docx_file} and paragraph is {self.count}")
-                except:
-                        print(f"Something went wrong with{docx_file}")
-                    
-
-               
-
-                if ".docx" not in file:
-                    self.sort_and_move(file)
-                    print(f"File is copied{file}")
+                self.sort_and_move(file)
+                print(f"File is copied{file}")
         self.final_decision()
 
-    
-    def checking_docx_files(self,our_file,information):
-        self.count = 0
-        self.information = information
-        
-        
-        doc = docx.Document(our_file)
-        for paragraph in doc.paragraphs:
-            text_file = paragraph.text
-            self.count += 1
-            if self.information in text_file:
-                
-                yield our_file,self.count
-       
-           
-        
     def extension_folders(self, extension_for_search):
         self.extension_for_search = extension_for_search
         for extension in self.extension_for_search.split():
@@ -72,14 +35,14 @@ class FileManager():
             os.makedirs(self.mainfolder)
             yield extension
 
+
     def create_full_path(self,extension_copy):
         for address, dirs, files in os.walk(self.way):
 
             for file in files:
-                
+
                 if extension_copy in file:
                      our_file = os.path.join(address, file)
-                     
                      if time.time() - os.path.getctime(our_file) < self.day and not any(
                          defect in our_file for defect in list_defect):
 
@@ -98,9 +61,13 @@ class FileManager():
                 with open(os.path.join(self.path_copy, "mistakes.txt"), 'a') as file_mistake:
                     file_mistake.write(f"{our_file}\n")
 
+    def print_results(self,file):
+        print(f" File is copied {file}")
+
     def final_decision(self):
         self.what_to_do = input("Do you want to delete these files -")
         if self.what_to_do == "Yes":
             shutil.rmtree(self.name_folder)
 
-run = FileManager()
+
+
