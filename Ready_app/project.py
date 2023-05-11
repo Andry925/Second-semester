@@ -5,20 +5,21 @@ import time
 seconds_in_day = 86400
 list_defect = ["$", ".lnk", ".LNK"]
 
+
 class FileManager():
     def __init__(self):
         self.list_extension = []
         self.name_folder = final_code.get_mainfolder()
-        while True:
-            try:
-                self.day = int(
-                   final_code.get_days()) * seconds_in_day
-                self.extension_for_search = final_code.get_extensions()
-                self.directory = final_code.get_directory()
-                os.chdir(str(self.directory))
-                self.way = final_code.get_way()
-                break
-            except BaseException:
+       
+        try:
+            self.day = int(
+            final_code.get_days()) * seconds_in_day
+            self.extension_for_search = final_code.get_extensions()
+            self.directory = final_code.get_directory()
+            os.chdir(str(self.directory))
+            self.way = final_code.get_way()
+       
+        except BaseException:
                 print("Invalid input of data -")
         for extension in self.extension_folders(self.extension_for_search):
 
