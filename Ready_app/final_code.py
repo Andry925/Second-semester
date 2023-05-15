@@ -1,6 +1,24 @@
 import tkinter
 import project
 
+
+def get_mainfolder():
+    return root.textentry_mainfolder.get()
+
+def get_days():
+    return root.textentry_days.get()
+
+def get_extensions():
+    return root.textentry_extensions.get()
+def get_directory():
+    return root.textentry_directory.get()
+def get_way():
+    return root.textentry_path.get()
+
+def get_final_decision():
+    return root.textentry_option.get()
+
+
 class Interface(tkinter.Tk):
     def __init__(self):
         super().__init__()
@@ -11,6 +29,7 @@ class Interface(tkinter.Tk):
         self.create_labels()
         self.create_Entry()
         self.pack_widgets()
+        self.final_decision_option()
         self.create_button()
         
         
@@ -23,6 +42,7 @@ class Interface(tkinter.Tk):
         self.label_directory = tkinter.Label(self.frame, text="Put the directory you want to store the file")
         self.label_path = tkinter.Label(self.frame, text="Put the path to start with")
        
+       
         
     def create_Entry(self):
         self.textentry_mainfolder = tkinter.Entry(self.frame)
@@ -30,6 +50,7 @@ class Interface(tkinter.Tk):
         self.textentry_extensions = tkinter.Entry(self.frame)
         self.textentry_directory = tkinter.Entry(self.frame)
         self.textentry_path= tkinter.Entry(self.frame)
+        
 
     
     def pack_widgets(self):
@@ -43,11 +64,17 @@ class Interface(tkinter.Tk):
         self.textentry_directory.grid()
         self.label_path.grid()
         self.textentry_path.grid()
+        
     
     def create_button(self):
         self.button = tkinter.Button(self.frame,text = "Run code",command = project.FileManager)
         self.button.grid()
 
+    def final_decision_option(self):
+        self.label_decison = tkinter.Label(self.frame,text ="Do you want to delete these files ?")
+        self.textentry_option = tkinter.Entry(self.frame)
+        self.label_decison.grid()
+        self.textentry_option.grid()
 
 
 
@@ -56,16 +83,5 @@ class Interface(tkinter.Tk):
 
 root = Interface()
 root.mainloop()
-def get_mainfolder():
-    return root.textentry_mainfolder.get()
 
-def get_days():
-    return root.textentry_days.get()
-
-def get_extensions():
-    return root.textentry_extensions.get()
-def get_directory():
-    return root.textentry_directory.get()
-def get_way():
-    return root.textentry_path.get()
 
