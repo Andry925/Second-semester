@@ -21,11 +21,7 @@ class FileManager():
        
         except BaseException:
                 print("Invalid input of data -")
-        for extension in self.extension_folders(self.extension_for_search):
-
-            for file in self.create_full_path(extension):
-                self.sort_and_move(file)
-                print(f"File is copied{file}")
+        self.run_code()
         self.final_decision()
 
     def extension_folders(self, extension_for_search):
@@ -61,12 +57,17 @@ class FileManager():
             except BaseException:
                 with open(os.path.join(self.path_copy, "mistakes.txt"), 'a') as file_mistake:
                     file_mistake.write(f"{our_file}\n")
+    
+    def run_code(self):
+         for extension in self.extension_folders(self.extension_for_search):
 
-    def print_results(self,file):
-        print(f" File is copied {file}")
+            for file in self.create_full_path(extension):
+                self.sort_and_move(file)
+                print(f"File is copied{file}")
 
+    
     def final_decision(self):
-        self.what_to_do = input("Do you want to delete these files -")
+        self.what_to_do = input("Do you want to delete these files")
         if self.what_to_do == "Yes":
             shutil.rmtree(self.name_folder)
 
