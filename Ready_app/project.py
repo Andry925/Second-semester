@@ -16,9 +16,9 @@ class FileManager():
             self.days = int(
             final_code.get_days()) * seconds_in_day
             self.needed_extensions = final_code.get_extensions()
-            self.directory = final_code.get_directory()
-            os.chdir(str(self.directory))
-            self.way = final_code.get_way()
+            self.directory_to_store_files = final_code.get_directory()
+            os.chdir(str(self.directory_to_store_files))
+            self.path_to_start = final_code.get_way()
        
         except BaseException:
                 print("Invalid input of data -")
@@ -30,15 +30,15 @@ class FileManager():
         self.needed_extensions = needed_extensions
         for extension in self.needed_extensions.split():
             self.list_needed_extensions.append(extension)
-            self.mainfolder = f"{self.mainfolder_name}\\{extension}"
-            os.makedirs(self.mainfolder)
+            self.extension_folders_in_mainfolder = f"{self.mainfolder_name}\\{extension}"
+            os.makedirs(self.extension_folders_in_mainfolder)
             yield extension
 
 
 
 
     def create_full_path(self,extension_copy):
-        for address, dirs, files in os.walk(self.way):
+        for address, dirs, files in os.walk(self.path_to_start):
 
             for file in files:
 
@@ -50,7 +50,7 @@ class FileManager():
                         yield our_file
 
     def sort_and_move(self, our_file):
-        self.path_copy = os.path.join(self.directory, self.mainfolder_name)
+        self.path_copy = os.path.join(self.directory_to_store_files, self.mainfolder_name)
         for extension in self.list_needed_extensions:
             try:
                 if extension in our_file:
