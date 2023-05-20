@@ -2,21 +2,9 @@ import tkinter
 import project
 
 
-def get_mainfolder():
-    return root.textentry_mainfolder.get()
 
-def get_days():
-    return root.textentry_days.get()
 
-def get_extensions():
-    return root.textentry_extensions.get()
-def get_directory():
-    return root.textentry_directory.get()
-def get_way():
-    return root.textentry_path.get()
 
-def get_final_decision():
-    return root.textentry_option.get()
 
 
 class Interface(tkinter.Tk):
@@ -24,6 +12,7 @@ class Interface(tkinter.Tk):
         super().__init__()
         self.title("An interface for my app")
         self.geometry("300x300")
+        self.resizable(height=False,width=False)
         self.frame = tkinter.Frame(self)
         self.frame.grid()
         self.create_labels()
@@ -67,6 +56,7 @@ class Interface(tkinter.Tk):
         
     
     def create_button(self):
+        
         self.button = tkinter.Button(self.frame,text = "Run code",command = project.FileManager)
         self.button.grid()
 
@@ -77,11 +67,27 @@ class Interface(tkinter.Tk):
         self.textentry_option.grid()
 
 
-
-
-
-
 root = Interface()
+
+
+def get_mainfolder():
+    return root.textentry_mainfolder.get()
+
+def get_days():
+    return root.textentry_days.get()
+
+def get_extensions():
+    return root.textentry_extensions.get()
+def get_directory():
+    return root.textentry_directory.get()
+def get_way():
+    return root.textentry_path.get()
+
+def get_final_decision():
+    return root.textentry_option.get()
+
 root.mainloop()
+
+
 
 
