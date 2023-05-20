@@ -37,37 +37,37 @@ class FileManager():
 
 
 
-    def create_full_path(self,extension_copy):
+    def create_full_path(self,extension_for_full_path):
         for address, dirs, files in os.walk(self.path_to_start):
 
             for file in files:
 
-                if extension_copy in file:
-                     our_file = os.path.join(address, file)
-                     if time.time() - os.path.getctime(our_file) < self.days and not any(
-                         defect in our_file for defect in list_defect):
+                if extension_for_full_path in file:
+                     full_path_to_file = os.path.join(address, file)
+                     if time.time() - os.path.getctime(full_path_to_file) < self.days and not any(
+                         defect in full_path_to_file for defect in list_defect):
 
-                        yield our_file
+                        yield full_path_to_file
 
-    def sort_and_move(self, our_file):
-        self.path_copy = os.path.join(self.directory_to_store_files, self.mainfolder_name)
+    def copy_to_extension_folders(self, full_path_to_file):
+        self.path_to_copy_file = os.path.join(self.directory_to_store_files, self.mainfolder_name)
         for extension in self.list_needed_extensions:
             try:
-                if extension in our_file:
+                if extension in full_path_to_file:
                     shutil.copy(
-                        our_file, os.path.join(
-                            self.path_copy, extension))
+                        full_path_to_file, os.path.join(
+                            self.path_to_copy_file, extension))
 
             except BaseException:
-                with open(os.path.join(self.path_copy, "mistakes.txt"), 'a') as file_mistake:
-                    file_mistake.write(f"{our_file}\n")
+                with open(os.path.join(self.path_to_copy_file, "mistakes.txt"), 'a') as file_mistake:
+                    file_mistake.write(f"{full_path_to_file}\n")
     
     def run_code(self):
          for extension in self.create_extension_folders(self.needed_extensions):
 
-            for file in self.create_full_path(extension):
-                self.sort_and_move(file)
-                print(f"File is copied {file}")
+            for full_path_to_file in self.create_full_path(extension):
+                self.copy_to_extension_folders(full_path_to_file)
+                print(f"File is copied {full_path_to_file}")
 
     
     def final_decision(self):
