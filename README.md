@@ -20,7 +20,7 @@ The fourth, choose the extensions you want **_type extensions with dot like .pdf
 
 The fifth, choose the directory for mainfolder, **_type full path to directory_**.
 
-The sixth, choose the path from where your files will be copied at, **_also enter full path".
+The sixth, choose the path from where your files will be copied at, **_also enter full path_".
 
 The last one, decide whether you want to delete these files or not, **_press Yes, if so_**.
 
