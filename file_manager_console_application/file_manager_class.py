@@ -1,4 +1,3 @@
-import final_code
 import os
 import shutil
 import time
@@ -10,18 +9,22 @@ class FileManager():
     
     def __init__(self):
         self.list_needed_extensions = []
-        self.mainfolder_name = final_code.get_mainfolder()
+        self.mainfolder_name = input("How would you call mainfolder ? ")
+
+        while True:
        
-        try:
-            self.days = int(
-            final_code.get_days()) * seconds_in_day
-            self.needed_extensions = final_code.get_extensions()
-            self.directory_to_store_files = final_code.get_directory()
-            os.chdir(str(self.directory_to_store_files))
-            self.path_to_start = final_code.get_way()
+            try:
+                self.days = int(input(
+                "Put the time interval in days ")) * seconds_in_day
+                self.needed_extensions = input("Put the extensions you need ")
+                self.directory_to_store_files = input("Where do you want to store files ? ")
+                os.chdir(str(self.directory_to_store_files))
+                self.path_to_start = input("Put path to start ")
+                break
        
-        except BaseException:
+            except BaseException:
                 print("Invalid input of data -")
+        
         self.run_code()
         self.final_decision()
         
@@ -74,9 +77,8 @@ class FileManager():
 
     
     def final_decision(self):
-        self.what_to_do = final_code.get_final_decision()
+        self.what_to_do = input("Do you want to delete these files ? ")
         if self.what_to_do == "Yes":
             shutil.rmtree(self.mainfolder_name)
 
-
-
+run = FileManager()
