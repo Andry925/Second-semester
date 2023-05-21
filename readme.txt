@@ -1,1 +1,0 @@
-My program copies element to given folder
