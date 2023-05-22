@@ -1,4 +1,4 @@
-import final_code
+import interface_with_file_manager
 import os
 import shutil
 import time
@@ -10,15 +10,15 @@ class FileManager():
     
     def __init__(self):
         self.list_needed_extensions = []
-        self.mainfolder_name = final_code.get_mainfolder()
+        self.mainfolder_name = interface_with_file_manager.get_mainfolder()
        
         try:
             self.days = int(
-            final_code.get_days()) * seconds_in_day
-            self.needed_extensions = final_code.get_extensions()
-            self.directory_to_store_files = final_code.get_directory()
+            interface_with_file_manager.get_days()) * seconds_in_day
+            self.needed_extensions = interface_with_file_manager.get_extensions()
+            self.directory_to_store_files = interface_with_file_manager.get_directory()
             os.chdir(str(self.directory_to_store_files))
-            self.path_to_start = final_code.get_way()
+            self.path_to_start = interface_with_file_manager.get_way()
        
         except BaseException:
                 print("Invalid input of data -")
@@ -74,7 +74,7 @@ class FileManager():
 
     
     def final_decision(self):
-        self.what_to_do = final_code.get_final_decision()
+        self.what_to_do = interface_with_file_manager.get_final_decision()
         if self.what_to_do == "Yes":
             shutil.rmtree(self.mainfolder_name)
 

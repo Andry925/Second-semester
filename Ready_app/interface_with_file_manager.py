@@ -1,5 +1,5 @@
 import tkinter
-import project
+import main
 
 
 
@@ -57,7 +57,7 @@ class Interface(tkinter.Tk):
     
     def create_button(self):
         
-        self.button = tkinter.Button(self.frame,text = "Run code",command = project.FileManager)
+        self.button = tkinter.Button(self.frame,text = "Run code",command = main.FileManager)
         self.button.grid()
 
     def final_decision_option(self):
