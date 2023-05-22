@@ -48,7 +48,7 @@ class Interface(tkinter.Tk):
 
     def final_decision_option(self):
         self.label_decison = tkinter.Label(
-            self.frame, text="Do you want to delete these files ?")
+        self.frame, text="Do you want to delete these files ?")
         self.textentry_option = tkinter.Entry(self.frame)
         self.label_decison.grid()
         self.textentry_option.grid()
