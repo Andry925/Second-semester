@@ -2,46 +2,35 @@ import tkinter
 import main
 
 
-
-
-
-
-
 class Interface(tkinter.Tk):
     def __init__(self):
         super().__init__()
         self.title("An interface for my app")
         self.geometry("300x300")
-        self.resizable(height=False,width=False)
+        self.resizable(height=False, width=False)
         self.frame = tkinter.Frame(self)
         self.frame.grid()
         self.create_labels()
-        self.create_Entry()
+        self.create_entry()
         self.pack_widgets()
         self.final_decision_option()
         self.create_button()
-        
-        
 
     def create_labels(self):
-       
-        self.label_mainfolder = tkinter.Label(self.frame, text="How would you call mainfolder")
-        self.label_days = tkinter.Label(self.frame, text="Put the time interval in days ")
+        self.label_mainfolder = tkinter.Label(
+        self.frame, text="How would you call mainfolder")
+        self.label_days = tkinter.Label(self.frame, text="Put the time interval in days")
         self.label_extensions = tkinter.Label(self.frame, text="Put the extensions you need")
         self.label_directory = tkinter.Label(self.frame, text="Put the directory you want to store the file")
         self.label_path = tkinter.Label(self.frame, text="Put the path to start with")
-       
-       
-        
-    def create_Entry(self):
+
+    def create_entry(self):
         self.textentry_mainfolder = tkinter.Entry(self.frame)
         self.textentry_days = tkinter.Entry(self.frame)
         self.textentry_extensions = tkinter.Entry(self.frame)
         self.textentry_directory = tkinter.Entry(self.frame)
-        self.textentry_path= tkinter.Entry(self.frame)
-        
+        self.textentry_path = tkinter.Entry(self.frame)
 
-    
     def pack_widgets(self):
         self.label_mainfolder.grid()
         self.textentry_mainfolder.grid()
@@ -53,15 +42,13 @@ class Interface(tkinter.Tk):
         self.textentry_directory.grid()
         self.label_path.grid()
         self.textentry_path.grid()
-        
-    
+
     def create_button(self):
-        
-        self.button = tkinter.Button(self.frame,text = "Run code",command = main.FileManager)
+        self.button = tkinter.Button(self.frame, text="Run code", command=main.FileManager)
         self.button.grid()
 
     def final_decision_option(self):
-        self.label_decison = tkinter.Label(self.frame,text ="Do you want to delete these files ?")
+        self.label_decison = tkinter.Label(self.frame, text="Do you want to delete these files ?")
         self.textentry_option = tkinter.Entry(self.frame)
         self.label_decison.grid()
         self.textentry_option.grid()
@@ -73,21 +60,25 @@ root = Interface()
 def get_mainfolder():
     return root.textentry_mainfolder.get()
 
+
 def get_days():
     return root.textentry_days.get()
 
+
 def get_extensions():
     return root.textentry_extensions.get()
+
+
 def get_directory():
     return root.textentry_directory.get()
+
+
 def get_way():
     return root.textentry_path.get()
+
 
 def get_final_decision():
     return root.textentry_option.get()
 
+
 root.mainloop()
-
-
-
-
