@@ -14,7 +14,7 @@ class FileManager():
         while True:
 
             try:
-                self.days = int(input("Put the time interval in days ")) * seconds_in_day
+                self.days = float(input("Put the time interval in days ")) * seconds_in_day
                 self.needed_extensions = input("Put the extensions you need ")
                 self.directory_to_store_files = input("Where do you want to store files ? ")
                 os.chdir(str(self.directory_to_store_files))
