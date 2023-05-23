@@ -10,14 +10,14 @@ class FileManager():
 
     def __init__(self):
         self.list_needed_extensions = []
-        self.mainfolder_name = interface_with_file_manager.get_mainfolder()
+        self.mainfolder_name = interface_with_file_manager.get_values()["mainfolder"]
 
         try:
-            self.days = float(interface_with_file_manager.get_days()) * seconds_in_day
-            self.needed_extensions = interface_with_file_manager.get_extensions()
-            self.directory_to_store_files = interface_with_file_manager.get_directory()
+            self.days = float(interface_with_file_manager.get_values()["days"]) * seconds_in_day
+            self.needed_extensions = interface_with_file_manager.get_values()["extensions"]
+            self.directory_to_store_files = interface_with_file_manager.get_values()["directory"]
             os.chdir(str(self.directory_to_store_files))
-            self.path_to_start = interface_with_file_manager.get_way()
+            self.path_to_start = interface_with_file_manager.get_values()["way"]
 
         except BaseException:
             print("Invalid input of data -")
@@ -39,10 +39,13 @@ class FileManager():
 
                 if extension_for_full_path in file:
                     full_path_to_file = os.path.join(address, file)
-                    if time.time() - os.path.getctime(full_path_to_file) < self.days and not any(
+                    yield full_path_to_file
+
+    def determine_time_interval(self,full_path_to_file):
+        if time.time() - os.path.getctime(full_path_to_file) < self.days and not any(
                             defect in full_path_to_file for defect in list_defect):
 
-                        yield full_path_to_file
+            yield full_path_to_file
 
     def copy_to_extensions_folders(self, full_path_to_file):
         self.path_to_copy_file = os.path.join(self.directory_to_store_files, self.mainfolder_name)
@@ -59,10 +62,11 @@ class FileManager():
         for extension in self.create_extensions_folders(self.needed_extensions):
 
             for full_path_to_file in self.create_full_path(extension):
-                self.copy_to_extensions_folders(full_path_to_file)
-                print(f"File is copied {full_path_to_file}")
+                for needed_extension in self.determine_time_interval(full_path_to_file):
+                    self.copy_to_extensions_folders(needed_extension)
+                    print(f"File is copied {full_path_to_file}")
 
     def final_decision(self):
-        self.what_to_do = interface_with_file_manager.get_final_decision()
+        self.what_to_do = interface_with_file_manager.get_values()["final_decison"]
         if self.what_to_do == "Yes":
             shutil.rmtree(self.mainfolder_name)
