@@ -1,4 +1,4 @@
-# FileManger
+# FileManager
 This is filemanager which is created in order to help you to organize particular files into extension folders with different creation time. 
 The Tkinter library was used to build the interface
 
