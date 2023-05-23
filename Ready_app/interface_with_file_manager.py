@@ -2,6 +2,8 @@ import tkinter
 import main
 
 
+
+
 class Interface(tkinter.Tk):
     def __init__(self):
         super().__init__()
@@ -56,29 +58,12 @@ class Interface(tkinter.Tk):
 
 root = Interface()
 
-
-def get_mainfolder():
-    return root.textentry_mainfolder.get()
-
-
-def get_days():
-    return root.textentry_days.get()
-
-
-def get_extensions():
-    return root.textentry_extensions.get()
-
-
-def get_directory():
-    return root.textentry_directory.get()
-
-
-def get_way():
-    return root.textentry_path.get()
-
-
-def get_final_decision():
-    return root.textentry_option.get()
+def get_values():
+    values = {"mainfolder":root.textentry_mainfolder.get(),"days":root.textentry_days.get(),
+              "extensions":root.textentry_extensions.get(),
+              "directory":root.textentry_directory.get(),
+              "way":root.textentry_path.get(),"final_decison":root.textentry_option.get()}
+    return values
 
 
 root.mainloop()
