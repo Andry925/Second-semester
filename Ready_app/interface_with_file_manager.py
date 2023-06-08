@@ -62,7 +62,7 @@ def get_values():
     values = {"mainfolder":root.textentry_mainfolder.get(),"days":root.textentry_days.get(),
               "extensions":root.textentry_extensions.get(),
               "directory":root.textentry_directory.get(),
-              "way":root.textentry_path.get(),"final_decison":root.textentry_option.get()}
+              "path":root.textentry_path.get(),"final_decison":root.textentry_option.get()}
     return values
 
 
