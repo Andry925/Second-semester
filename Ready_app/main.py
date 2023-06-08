@@ -41,9 +41,14 @@ class FileManager():
                     full_path_to_file = os.path.join(address, file)
                     yield full_path_to_file
 
+    def determine_defect_file(self,full_path_to_file):
+        for defect in list_defect:
+            if defect in full_path_to_file:
+                return True
+
     def determine_time_interval(self,full_path_to_file):
-        if time.time() - os.path.getctime(full_path_to_file) < self.days and not any(
-                            defect in full_path_to_file for defect in list_defect):
+        if time.time() - os.path.getctime(full_path_to_file) < self.days and not self.determine_defect_file(
+            full_path_to_file):
 
             yield full_path_to_file
 
