@@ -17,7 +17,7 @@ class FileManager():
             self.needed_extensions = interface_with_file_manager.get_values()["extensions"]
             self.directory_to_store_files = interface_with_file_manager.get_values()["directory"]
             os.chdir(str(self.directory_to_store_files))
-            self.path_to_start = interface_with_file_manager.get_values()["way"]
+            self.path_to_start = interface_with_file_manager.get_values()["path"]
 
         except BaseException:
             print("Invalid input of data -")
@@ -48,14 +48,19 @@ class FileManager():
             yield full_path_to_file
 
     def copy_to_extensions_folders(self, full_path_to_file):
-        self.path_to_copy_file = os.path.join(self.directory_to_store_files, self.mainfolder_name)
+        self.directory_to_copy_file = os.path.join(self.directory_to_store_files, self.mainfolder_name)
         for extension in self.list_needed_extensions:
             try:
                 if extension in full_path_to_file:
-                    shutil.copy(full_path_to_file, os.path.join(self.path_to_copy_file, extension))
+                    destination_for_copied_file = os.path.join(self.directory_to_copy_file, extension)
+
+
+
+                    shutil.copy(full_path_to_file, destination_for_copied_file)
 
             except BaseException:
-                with open(os.path.join(self.path_to_copy_file, "mistakes.txt"), 'a') as file_mistake:
+                error_log_file = os.path.join(self.directory_to_copy_file, "mistakes.txt")
+                with open(error_log_file, 'a') as file_mistake:
                     file_mistake.write(f"{full_path_to_file}\n")
 
     def run_code(self):
