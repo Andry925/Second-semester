@@ -40,9 +40,11 @@ class FileManager():
 
             for file in files:
 
-                if extension_for_full_path in file:
-                    full_path_to_file = os.path.join(address, file)
-                    if time.time() - os.path.getctime(full_path_to_file) < self.days and not any(
+                if not extension_for_full_path in file:
+                    continue
+
+                full_path_to_file = os.path.join(address,file)
+                if time.time() - os.path.getctime(full_path_to_file) < self.days and not any(
                             defect in full_path_to_file for defect in list_defect):
 
                         yield full_path_to_file
@@ -60,11 +62,13 @@ class FileManager():
                     file_mistake.write(f"{full_path_to_file}\n")
 
     def run_code(self):
+        self.count = 0
         for extension in self.create_extensions_folders(self.needed_extensions):
 
             for full_path_to_file in self.create_full_path(extension):
+                self.count += 1
                 self.copy_to_extensions_folders(full_path_to_file)
-                print(f"File is copied {full_path_to_file}")
+                print(f"File is copied {full_path_to_file} {self.count}")
 
     def final_decision(self):
         self.what_to_do = input("Do you want to delete these files ? ")
